@@ -1,16 +1,29 @@
 import React from 'react';
 import axios from 'axios';
-
 class TakeInput extends React.Component{
 	state = {userName:''};
 	handleSubmit = async (event) => {
 		event.preventDefault();
-		// should add user to card list but does not have list
-		// will call function of app
-		const response = await axios.get(`https://api.github.com/users/${this.state.userName}`);
-		this.props.onSubmit(response.data);
-		this.setState({userName:''});
-	}
+		try{
+
+			let response = await axios.get(`https://api.github.com/users/${this.state.userName}`);
+			this.props.onSubmit(response.data);
+		} catch(err){
+			alert('The entered username does not exist')
+		}
+		this.setState({userName: ''});
+	};
+
+	// handleSubmit = async (event) => {
+	// 	event.preventDefault();
+	// 	// should add user to card list but does not have list
+	// 	// will call function of app
+	// 	const response = await axios.get(`https://api.github.com/users/${this.state.userName}`);
+	// 	alert(typeof response)
+	// 	// alert('hi')
+	// 	this.props.onSubmit(response.data);
+	// 	this.setState({userName:''});
+	// }
 	render(){
 		return(
 			<form onSubmit={this.handleSubmit} style={{marginLeft:10, marginBottom:50}}>
@@ -59,6 +72,7 @@ export default class App2 extends React.Component{
 	state = {profiles: []}
 	addNewUser = 
 		(userProfile) => {
+			// alert(userProfile.login)
 			this.setState(prevState => ({profiles: [...prevState.profiles, userProfile]}))
 		}
 	
