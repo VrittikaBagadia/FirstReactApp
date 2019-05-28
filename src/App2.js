@@ -65,7 +65,7 @@ export default class App2 extends React.Component{
 	render(){
 		return(
 			<div>
-				<div style={{fontSize:50, color:'green', textAlign:'center', marginBottom:10}}>FIRST REACT APP</div>
+				<div style={{fontSize:50, color: 'green', textAlign:'center', marginBottom:10}}>FIRST REACT APP</div>
 				<TakeInput onSubmit = {this.addNewUser}/>
 				<CardList profiles={this.state.profiles}/>
 
