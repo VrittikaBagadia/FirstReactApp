@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import { isTSImportEqualsDeclaration } from '@babel/types';
 class TakeInput extends React.Component{
 	state = {userName:''};
 	handleSubmit = async (event) => {
@@ -13,17 +14,6 @@ class TakeInput extends React.Component{
 		}
 		this.setState({userName: ''});
 	};
-
-	// handleSubmit = async (event) => {
-	// 	event.preventDefault();
-	// 	// should add user to card list but does not have list
-	// 	// will call function of app
-	// 	const response = await axios.get(`https://api.github.com/users/${this.state.userName}`);
-	// 	alert(typeof response)
-	// 	// alert('hi')
-	// 	this.props.onSubmit(response.data);
-	// 	this.setState({userName:''});
-	// }
 	render(){
 		return(
 			<form onSubmit={this.handleSubmit} style={{marginLeft:10, marginBottom:50}}>
@@ -56,7 +46,6 @@ class Card extends React.Component{
 	}
 
 }
-
 class CardList extends React.Component{
 	render(){
 		return(
@@ -67,13 +56,26 @@ class CardList extends React.Component{
 	}
 
 }
-
+function containsObject(obj, list) {
+	var i;
+	console.log(obj)
+    for (i = 0; i < list.length; i++) {
+		console.log(list[i])
+        if (list[i].id == obj.id) {
+            return true;
+        }
+    }
+    return false;
+}
 export default class App2 extends React.Component{
 	state = {profiles: []}
 	addNewUser = 
 		(userProfile) => {
 			// alert(userProfile.login)
-			this.setState(prevState => ({profiles: [...prevState.profiles, userProfile]}))
+			if (!containsObject(userProfile, this.state.profiles))
+				this.setState(prevState => ({profiles: [...prevState.profiles, userProfile]}))
+			else
+				alert('User already added')
 		}
 	
 	render(){
