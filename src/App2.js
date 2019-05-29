@@ -1,7 +1,7 @@
 import React from 'react';
 import { isTSImportEqualsDeclaration } from '@babel/types';
 import TakeInput from './Input';
-import {Card, CardList} from '././Cards';
+import {Card, CardList} from './Cards';
 
 function containsObject(obj, list) {
 	var i;
